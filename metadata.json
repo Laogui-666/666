@@ -1,0 +1,7 @@
+{
+  "name": "沐海旅行1",
+  "description": "沐海旅行专属一站式文档智能翻译与格式转换平台。基于智能驱动，确保翻译内容完整、排版1:1还原，支持Word/PDF导出。",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
