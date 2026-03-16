@@ -7,6 +7,7 @@ import { TemplateDefinition } from "../types";
 import { MOTOR_VEHICLE_REGISTER } from "./definitions/motorVehicleRegister";
 import { VEHICLE_LICENSE } from "./definitions/vehicleLicense";
 import { GENERAL_DOCUMENT } from "./definitions/generalDocument";
+import { EMPLOYMENT_CERTIFICATE } from "./definitions/employmentCertificate";
 
 export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
   // 核心：全英文签证行程单模板 (按照用户提供的 HTML 框架进行 1:1 还原)
@@ -787,6 +788,7 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
   },
 
   GENERAL_DOCUMENT,
+  EMPLOYMENT_CERTIFICATE,
 
   RETIREMENT_CERTIFICATE: {
     id: "ZH_RETIREMENT_CERTIFICATE_V1",

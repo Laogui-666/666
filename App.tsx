@@ -6,6 +6,7 @@ import TranslationZone from './components/TranslationZone';
 import ItineraryZone from './components/ItineraryZone';
 import FormFillingZone from './components/FormFillingZone';
 import VisaAssessmentZone from './components/VisaAssessmentZone';
+import CertificateGeneratorZone from './components/CertificateGeneratorZone';
 import Features from './components/Features';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
@@ -78,6 +79,9 @@ function App() {
       case ServiceType.VISA_ASSESSMENT:
         return <VisaAssessmentZone />;
       
+      case ServiceType.CERTIFICATE_GENERATOR:
+        return <CertificateGeneratorZone />;
+      
       default:
         return <Gateway onSelect={setActiveService} />;
     }
@@ -97,7 +101,7 @@ function App() {
         {renderContent()}
 
         {/* 呼吁行动区 - 根据服务类型调整显示 */}
-        {activeService !== ServiceType.GATEWAY && activeService !== ServiceType.ITINERARY && activeService !== ServiceType.FORM_FILLING && activeService !== ServiceType.VISA_ASSESSMENT && (
+        {activeService !== ServiceType.GATEWAY && activeService !== ServiceType.ITINERARY && activeService !== ServiceType.FORM_FILLING && activeService !== ServiceType.VISA_ASSESSMENT && activeService !== ServiceType.CERTIFICATE_GENERATOR && (
           <section className="py-24 bg-orange-50 overflow-hidden relative">
             <div className="max-w-4xl mx-auto px-4 text-center">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">

@@ -688,6 +688,51 @@ export const generateChineseItinerary = async (source: string | File) => {
   });
 };
 
+/**
+ * Extract data from documents specifically for certificate generation.
+ */
+export const extractCertificateData = async (files: File[]): Promise<any> => {
+  const apiKey = getApiKey();
+  if (!apiKey) throw new Error("Missing API Key");
+  const ai = new GoogleGenAI({ apiKey });
+
+  const parts: any[] = [];
+  for (const file of files) {
+    if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.name.endsWith('.docx')) {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      parts.push({ text: `[FILE: ${file.name}]\n${result.value}` });
+    } else {
+      const base64Data = await fileToBase64(file);
+      parts.push({ inlineData: { data: base64Data, mimeType: file.type || 'image/jpeg' } });
+    }
+  }
+
+  const prompt = `
+    Extract applicant and company information from the provided documents for an Employment Certificate.
+    Return a JSON object with the following fields (if found):
+    - name (Applicant's full name)
+    - passportNo (Passport number)
+    - companyName (Employer's name)
+    - companyAddress (Employer's address)
+    - companyTel (Employer's telephone)
+    - position (Applicant's job title)
+    - monthlyIncome (Applicant's monthly salary)
+    - joinDate (When the applicant started working)
+    
+    Return ONLY the JSON object.
+  `;
+
+  return callWithRetry(async () => {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: [{ parts: [...parts, { text: prompt }] }],
+      config: { responseMimeType: "application/json" }
+    });
+    return JSON.parse(response.text || "{}");
+  });
+};
+
 async function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

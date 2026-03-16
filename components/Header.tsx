@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ user, activeService, onOpenAuth, onOpen
   const navItems = [
     { id: ServiceType.TRANSLATION, label: '材料翻译' },
     { id: ServiceType.ITINERARY, label: '行程单定制' },
+    { id: ServiceType.CERTIFICATE_GENERATOR, label: '标准证明生成' },
     { id: ServiceType.VISA_ASSESSMENT, label: '签证申请评估' },
   ];
 

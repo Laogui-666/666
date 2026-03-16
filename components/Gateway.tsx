@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FileText, Map, FileEdit, ArrowRight, Sparkles, FileSearch } from 'lucide-react';
+import { FileText, Map, FileEdit, ArrowRight, Sparkles, FileSearch, FileCheck } from 'lucide-react';
 import { ServiceType } from '../types';
 
 interface GatewayProps {
@@ -24,6 +24,14 @@ const Gateway: React.FC<GatewayProps> = ({ onSelect }) => {
       icon: <Map className="w-10 h-10 text-blue-600" />,
       color: 'bg-blue-50',
       tag: '省心必备'
+    },
+    {
+      id: ServiceType.CERTIFICATE_GENERATOR,
+      title: '标准证明生成',
+      desc: '一键生成在职证明等各类标准文书',
+      icon: <FileCheck className="w-10 h-10 text-emerald-600" />,
+      color: 'bg-emerald-50',
+      tag: '效率神器'
     },
     {
       id: ServiceType.VISA_ASSESSMENT,
@@ -51,7 +59,7 @@ const Gateway: React.FC<GatewayProps> = ({ onSelect }) => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8 w-full max-w-6xl">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-7xl">
         {services.map((service) => (
           <div 
             key={service.id}
